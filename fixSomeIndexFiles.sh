@@ -1,22 +1,19 @@
 echo "Thank you to use - fixSomeIndexFiles <3!"
-cd /var/lib/apt/lists/
 
-sudo rm -fr *
+sudo mv /etc/apt/sources.list{,.backup}
 
-cd /etc/apt/sources.list.d/
+sudo mv /etc/apt/sources.list.d{,.backup}
 
-sudo rm -fr *
+sudo mkdir /etc/apt/sources.list.d
 
-cd /etc/apt
+sudo cp /usr/share/doc/apt/examples/sources.list /etc/apt/sources.list
 
-sudo cp sources.list sources.list.old
+sudo apt update -y
 
-sudo cp sources.list sources.list.tmp
+sudo add-apt-repository restricted
 
-sed 's/ubuntuarchive.hnsdc.com/us.archive.ubuntu.com/' sources.list.tmp | sudo tee sources.list
+sudo add-apt-repository multiverse
 
-sudo rm sources.list.tmp*
+sudo add-apt-repository universe
 
-sudo apt-get clean
-
-sudo apt-get update
+sudo apt update -y
